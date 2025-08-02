@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login to QC Sweepstakes</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  <button onclick="googleLogin()">Login with Google</button>
+
+  
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-giQ4CGXX6F0RIXbAzbp_0vDDomoLo8g",
+    authDomain: "qcsweeps-4b994.firebaseapp.com",
+    databaseURL: "https://qcsweeps-4b994-default-rtdb.firebaseio.com",
+    projectId: "qcsweeps-4b994",
+    storageBucket: "qcsweeps-4b994.appspot.com",
+    messagingSenderId: "810241609281",
+    appId: "1:810241609281:web:63ecd22b6acbee2cf480c0",
+    measurementId: "G-XL9VQ985S9"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+  <script>
+    const auth = firebase.auth();
+
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          window.location.href = 'dashboard.html';
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+
+    function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          window.location.href = 'dashboard.html';
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  </script>
+</body>
+</html>
